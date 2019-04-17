@@ -8,7 +8,7 @@ echo "secret = \"$BCN_SECRET\"" >> cfg/config.toml
 
 echo "[server]" >> cfg/config.toml
 echo "local = false" >> cfg/config.toml
-echo "host = \"$NOW_URL\"" >> cfg/config.toml
+echo "host = \"$BCN_URL\"" >> cfg/config.toml
 echo "protocol = \"\"" >> cfg/config.toml
 echo "port = 8080" >> cfg/config.toml
 echo "root_path = \"./files\"" >> cfg/config.toml

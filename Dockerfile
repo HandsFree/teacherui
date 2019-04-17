@@ -28,10 +28,10 @@ RUN cd frontend &&\
     yarn bp
 
 ADD docker-entrypoint.sh /
-ADD setup_cfg.sh /
+ADD setup_cfg.sh /go/src/github.com/HandsFree/teacherui-backend
 
 RUN chmod +x /docker-entrypoint.sh
-RUN chmod +x /setup_cfg.sh
+RUN chmod +x setup_cfg.sh
 
 
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
