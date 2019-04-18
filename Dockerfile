@@ -1,25 +1,19 @@
 FROM golang:alpine
 
 # Installing packages
+# `--virtual .bcn-deps` -- groups packages under .bcn-deps
 RUN apk update &&\
-    apk add yarn &&\
-    apk add nodejs &&\
-    apk add git &&\
-    rm -rf /var/cache/apk/* /tmp/* /var/tmp/*
+    apk --no-cache add --virtual .bcn-deps yarn nodejs git
 
 # Fetch the backend and frontend
-RUN go get github.com/HandsFree/teacherui-backend &&\
-    git clone https://github.com/HandsFree/teacherui-frontend.git /go/src/github.com/HandsFree/teacherui-backend/frontend
+RUN git clone https://github.com/HandsFree/teacherui-backend.git /teacherui &&\
+    git clone https://github.com/HandsFree/teacherui-frontend.git /teacherui/frontend
 
 # Set root dir for commands to teacherui-backend
-WORKDIR /go/src/github.com/HandsFree/teacherui-backend
+WORKDIR /teacherui
 
-# TODO: use non-root user
-USER root
-
-# update all go deps, build into beaconing binary.
-# cd into the frontend and build.
-RUN go get && go build -o beaconing
+# Build the backend and frontend
+RUN go build -o teacherui-backend
 
 RUN cd frontend &&\
     rm -rf node_modules &&\
@@ -27,13 +21,19 @@ RUN cd frontend &&\
     yarn &&\
     yarn bp
 
+# Cleanup
+RUN rm -rf /var/cache/apk/* /tmp/* /var/tmp/* /var/log/* \
+    /go/pkg/mod/* /teacherui/frontend/node_modules /teacherui/frontend/src &&\
+    apk del .bcn-deps
+
+# Add setup files
 ADD docker-entrypoint.sh /
-ADD setup_cfg.sh /go/src/github.com/HandsFree/teacherui-backend
+ADD setup_cfg.sh /teacherui
 
-RUN chmod +x /docker-entrypoint.sh
-RUN chmod +x setup_cfg.sh
+RUN chmod +x /docker-entrypoint.sh &&\
+    chmod +x setup_cfg.sh
 
-
+# ENTRYPOINT [ "/bin/ash" ]
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
 
 EXPOSE 8080

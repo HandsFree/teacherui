@@ -1,5 +1,5 @@
 #!/bin/sh
 
-cd /go/src/github.com/HandsFree/teacherui-backend
+cd /teacherui
 ./setup_cfg.sh
-./beaconing
+./teacherui-backend
