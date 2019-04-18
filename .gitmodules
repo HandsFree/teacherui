@@ -1,6 +1,6 @@
 [submodule "teacherui-frontend"]
 	path = teacherui-frontend
-	url = git@github.com:HandsFree/teacherui-frontend.git
+	url = https://github.com/HandsFree/teacherui-frontend.git
 [submodule "teacherui-backend"]
 	path = teacherui-backend
-	url = git@github.com:HandsFree/teacherui-backend.git
+	url = https://github.com/HandsFree/teacherui-backend.git
