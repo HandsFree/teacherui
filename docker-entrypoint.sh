@@ -1,5 +1,5 @@
 #!/bin/sh
 
 cd /teacherui
-./setup_cfg.sh
+./setup_cfg_docker.sh
 ./teacherui-backend

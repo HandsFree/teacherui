@@ -28,10 +28,10 @@ RUN rm -rf /var/cache/apk/* /tmp/* /var/tmp/* /var/log/* \
 
 # Add setup files
 ADD docker-entrypoint.sh /
-ADD setup_cfg.sh /teacherui
+ADD setup_cfg_docker.sh /teacherui
 
 RUN chmod +x /docker-entrypoint.sh &&\
-    chmod +x setup_cfg.sh
+    chmod +x setup_cfg_docker.sh
 
 # ENTRYPOINT [ "/bin/ash" ]
 ENTRYPOINT [ "/docker-entrypoint.sh" ]

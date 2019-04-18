@@ -1,17 +1,8 @@
 #!/bin/sh
 
-git clone https://github.com/HandsFree/teacherui-backend.git
-git clone https://github.com/HandsFree/teacherui-frontend.git teacherui-backend/frontend
-
+mv setup_cfg.sh teacherui-backend/
 cd teacherui-backend
+chmod +x setup_cfg.sh
+./setup_cfg.sh
 
-go build
-
-cd frontend
-
-yarn
-yarn bp
-
-cd ../
-
-../setup_cfg.sh
+./teacherui-backend
