@@ -1,5 +1,10 @@
 FROM golang:alpine
 
+ARG BCN_SECRET
+ARG BCN_URL=""
+ARG BCN_LOCAL
+ARG PORT
+
 # Installing packages
 # `--virtual .bcn-deps` -- groups packages under .bcn-deps
 RUN apk update &&\
@@ -21,19 +26,16 @@ RUN cd frontend &&\
     yarn &&\
     yarn bp
 
+ADD setup_cfg_docker.sh /teacherui
+
+RUN chmod +x setup_cfg_docker.sh &&\
+    sh setup_cfg_docker.sh
+
 # Cleanup
 RUN rm -rf /var/cache/apk/* /tmp/* /var/tmp/* /var/log/* \
     /go/pkg/mod/* /teacherui/frontend/node_modules /teacherui/frontend/src &&\
     apk del .bcn-deps
 
-# Add setup files
-ADD docker-entrypoint.sh /
-ADD setup_cfg_docker.sh /teacherui
-
-RUN chmod +x /docker-entrypoint.sh &&\
-    chmod +x setup_cfg_docker.sh
-
-# ENTRYPOINT [ "/bin/ash" ]
-ENTRYPOINT [ "/docker-entrypoint.sh" ]
+CMD [ "/teacherui/teacherui-backend" ]
 
 EXPOSE 8080
