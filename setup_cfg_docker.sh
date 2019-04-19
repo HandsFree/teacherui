@@ -24,3 +24,6 @@ echo "key_file = \"./trans.keys\"" >> cfg/config.toml
 echo "[debug]" >> cfg/config.toml
 echo "grmon = false" >> cfg/config.toml
 
+echo "Config:"
+cat cfg/config.toml
+
