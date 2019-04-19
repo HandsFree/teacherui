@@ -31,6 +31,7 @@ RUN rm -rf /var/cache/apk/* /tmp/* /var/tmp/* /var/log/* \
     /go/pkg/mod/* /teacherui/frontend/node_modules /teacherui/frontend/src &&\
     apk del .bcn-deps
 
+# Add scripts
 ADD start_docker.sh /
 ADD setup_cfg_docker.sh /teacherui
 
@@ -39,4 +40,4 @@ RUN chmod +x setup_cfg_docker.sh &&\
 
 CMD [ "/start_docker.sh" ]
 
-EXPOSE 8080
+EXPOSE $PORT
