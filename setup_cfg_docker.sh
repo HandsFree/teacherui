@@ -8,7 +8,8 @@ echo "secret = \"$BCN_SECRET\"" >> cfg/config.toml
 
 echo "[server]" >> cfg/config.toml
 echo "local = $BCN_LOCAL" >> cfg/config.toml
-echo "host = \"$BCN_URL\"" >> cfg/config.toml
+echo "host = \"$BCN_HOST\"" >> cfg/config.toml
+echo "callback_url = \"$BCN_URL\"" >> cfg/config.toml
 echo "port = $PORT" >> cfg/config.toml
 echo "root_path = \"./files\"" >> cfg/config.toml
 echo "glp_files_path = \"glp_files/\"" >> cfg/config.toml
