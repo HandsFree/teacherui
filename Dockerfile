@@ -35,7 +35,7 @@ ADD start_docker.sh /
 ADD setup_cfg_docker.sh /teacherui
 
 RUN chmod +x setup_cfg_docker.sh &&\
-    chmod +x start_docker.sh
+    chmod +x /start_docker.sh
 
 CMD [ "/start_docker.sh" ]
 
