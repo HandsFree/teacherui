@@ -12,16 +12,13 @@ RUN apk update &&\
     apk --no-cache add --virtual .bcn-deps yarn nodejs git
 
 # Fetch the backend and frontend
-RUN git clone https://github.com/HandsFree/teacherui-backend.git /teacherui &&\
-    git clone https://github.com/HandsFree/teacherui-frontend.git /teacherui/frontend
-
-# Set root dir for commands to teacherui-backend
-WORKDIR /teacherui
+RUN git clone https://github.com/HandsFree/teacherui-backend.git /teacherui-backend &&\
+    git clone https://github.com/HandsFree/teacherui-frontend.git /teacherui-frontend
 
 # Build the backend and frontend
-RUN go build -o teacherui-backend
-
-RUN cd frontend &&\
+RUN cd /teacherui-backend &&\
+    go build -o teacherui-backend &&\
+    cd /teacherui-frontend &&\
     rm -rf node_modules &&\
     rm yarn.lock &&\
     yarn &&\
@@ -34,7 +31,10 @@ RUN rm -rf /var/cache/apk/* /tmp/* /var/tmp/* /var/log/* \
 
 # Add scripts
 ADD start_docker.sh /
-ADD setup_cfg_docker.sh /teacherui
+ADD setup_cfg_docker.sh /teacherui-backend
+
+# Set root dir for commands to teacherui-backend
+WORKDIR /teacherui-backend
 
 RUN chmod +x setup_cfg_docker.sh &&\
     chmod +x /start_docker.sh
